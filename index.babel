@@ -1,0 +1,73 @@
+var CELSIUS = 0, FAHRENHEIT = 1;
+
+
+const app = new Vue({
+  el: '#app',
+  data: {
+      title: 'Your Local Weather', 
+      position: null,
+      info: null,
+      loading: true,
+      errored: false,
+      weather: null,
+      onFahrenheit: true,
+      seen: false,
+    
+      
+    
+      
+  },
+  
+  methods: {
+reloadWebsite: function() {
+       location.reload(true);
+  
+      }
+  
+    
+    
+ 
+  //-------END METHODS 
+  },
+   //geolocation-------START
+   mounted: function() {
+    if(navigator.geolocation) {
+       var self = this;
+       navigator.geolocation.getCurrentPosition(function(position){
+        self.position = position.coords;
+        self.lon = position.coords.longitude;
+        self.lat = position.coords.latitude;
+        self.lat = parseFloat(self.lat).toFixed(2);
+        self.lon = parseFloat(self.lon).toFixed(2);
+         axios
+         .get(`https://fcc-weather-api.glitch.me/api/current?lon=${app.lon}&lat=${app.lat}`)
+         .then(response => (app.info = response.data))
+         .then(response => (app.weather = response.weather))
+         .then(response => (app.image = app.weather[0].icon))
+         .then(response => (app.temp = this.info.main.temp))
+         
+         
+      })
+         .catch(error => {
+         console.log(error)
+          this.errored = true
+      })
+          .finally(() => this.loading = false)
+      
+    }
+  },
+  //End of Mounted
+  //geolocation-----END 
+   
+  computed: function() {
+    curTempDisplay: {
+     
+      
+    }
+  }
+ 
+  //end of computed
+})
+
+
+

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <title>FreeCodeCamp - Local Weather App with VUE.js</title>
+  
+  
+  <link rel='stylesheet' href='http://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.0/animate.min.css'>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css'>
+<link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Bitter|Source+Sans+Pro:200,400,700'>
+
+      <link rel="stylesheet" href="css/style.css">
+
+  
+</head>
+
+<body>
+
+  <div class="container-fluid">
+<div id= "app">
+ <div class="card border-primary mb-3" style="max-width: 22rem;"> 
+   <div class="card-header">{{ title }}</div>
+    <div class="card-body text-primary">
+  <h1></h1>
+  
+  <section v-if="errored">
+    <p>We're sorry, we're not able to retrieve this information at the moment, please try back later</p>
+  </section>
+ 
+  
+  <p>Welcome:</p> <h2>{{info.name}}</h2> 
+  <p>Located in {{info.sys.country}} </p>
+  <h1>Temperature:</h1>
+  <h1 v-if="!seen"> {{info.main.temp}}°C</h1>
+  <h1 v-if="seen"> {{(info.main.temp * 1.8 + 32).toFixed(2)}}°F</h1>
+  <button @click="seen = !seen">°C | °F</button>    
+  </br>
+  <p>Your local weather:</p><h2> {{weather[0].description}} </h2>
+  <div class="image">
+   <img v-bind:src="app.weather[0].icon" width="70" height="70"> 
+  </div>
+   </br>
+  <h3>Humidity: {{info.main.humidity}}</h3>
+  <h3>Wind Speed: {{app.info.wind.speed}}</h3>
+   
+  
+<!-- Do not display this at the moment 
+  <p>The Max Temperature for today is: {{info.main}}</p>
+  
+  
+  <a v-bind:href="'https://fcc-weather-api.glitch.me/api/current?lon='+ app.lon +'&lat=' + app.lat">checkWeather!</a>
+  
+
+
+  <p>{{ app.info }}</p>
+  <p>Your latitude is: {{this.position.latitude}} rounded {{this.lat}}</p>
+  <p>Your longitude is: {{this.position.longitude}} rounded {{this.lon}}</p>
+ -->
+  
+ <button @click = "reloadWebsite"> Reload </button> 
+  
+  
+  
+   <small>
+          Powered by:  
+          <a href="https://vuejs.org/">Vue.js</a>.
+  </small> 
+ 
+  </div>
+</div>
+</div>
+</div>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.min.js'></script>
+<script src='https://platform.twitter.com/widgets.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js'></script>
+
+  
+
+    <script  src="js/index.js"></script>
+
+
+
+
+</body>
+
+</html>
